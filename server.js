@@ -9,6 +9,32 @@ connectDB();
 
 const app = express();
 
+app.get('/', (req, res) => {
+    try {
+        res.status(200).json({
+            success: true,
+            message: 'Goalsetter API',
+            routes: {
+                goals: '/api/goals',
+                users: '/api/users'
+            },
+            status: 'UP',
+            updated: `${new Date().toLocaleString('en-US', {
+                timeZone: 'America/New_York'
+            })}`
+        });
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: error,
+            status: 'DOWN',
+            updated: `${new Date().toLocaleString('en-US', {
+                timeZone: 'America/New_York'
+            })}`
+        });
+    }
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
